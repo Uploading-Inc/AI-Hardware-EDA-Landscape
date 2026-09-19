@@ -11,7 +11,7 @@
 [![Cutoff](https://img.shields.io/badge/literature%20cutoff-2026--09--19-0f766e?style=flat-square)](#scope)
 [![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-f59e0b?style=flat-square)](LICENSE)
 
-[Start here](#what-is-this-project) · [Research questions](#research-questions) · [Landscape](#benchmark-landscape) · [Findings](#preliminary-findings) · [Data](data/benchmarks.csv) · [Blog](blog/from-rtl-generation-to-engineering-agents.md) · [Contribute](CONTRIBUTING.md)
+[Start here](#what-is-this-project) · [Field guide](docs/field-guide.md) · [Research library](research/README.md) · [Landscape](#benchmark-landscape) · [Data](data/benchmarks.csv) · [Contribute](CONTRIBUTING.md)
 
 </div>
 
@@ -34,12 +34,29 @@ flowchart LR
 
 We are **not** introducing a new model or benchmark in the current phase. The repository is the working companion to a new survey: it turns a fast-moving body of papers into a readable synthesis, a structured benchmark catalog, and a reproducible evidence base.
 
+In one sentence: **we are mapping what AI systems are asked to do in hardware engineering, how those systems are evaluated, and which claims are actually comparable.**
+
 <details>
 <summary><strong>中文简介</strong></summary>
 
 本项目系统调研 AI/LLM 在硬件设计与电子设计自动化领域的学术论文、benchmark、方法和已有 survey，并在此基础上撰写一篇达到 arXiv 论文严谨程度的综述。当前阶段不是开发新的模型或 benchmark，而是回答：这个领域已有怎样的评测体系、不同工作究竟测了什么、结果是否可比，以及仍有哪些研究空白。
 
 </details>
+
+## Start reading
+
+Choose the route that matches what you need:
+
+| If you want to… | Read this | What you will get |
+|---|---|---|
+| Understand the field without prior EDA knowledge | [Field guide](docs/field-guide.md) | The seven directions, their inputs/outputs, evaluation methods, and current maturity |
+| Read the current argument as an essay | [Survey blog draft](blog/from-rtl-generation-to-engineering-agents.md) | The shift from isolated RTL generation to verifier- and environment-grounded agents |
+| Understand one benchmark precisely | [Research library](research/README.md) | Illustrated cards covering task, pipeline, oracle, limitations, and reproducibility |
+| Compare the full landscape | [Benchmark catalog](data/benchmarks.csv) + [taxonomy](docs/taxonomy.md) | Structured records and a shared comparison vocabulary |
+| Inspect how evidence is produced | [Research protocol](docs/research-notes.md) | Inclusion rules, source hierarchy, verification stages, and open questions |
+| See how this becomes a paper | [Manuscript workspace](paper/README.md) | Planned sections, figures, tables, and their evidence dependencies |
+
+If you are new to the topic, follow the first three rows in order. They are the public reading layer; `data/`, templates, and protocol files are the research machinery behind it.
 
 ## Why this survey now?
 
@@ -64,6 +81,7 @@ The survey is organized around six questions:
 
 | Artifact | Purpose | Entry point |
 |---|---|---|
+| Field orientation | A non-specialist map of the current research landscape | [Field guide](docs/field-guide.md) |
 | Survey synthesis | A readable account of the field, its evolution, and its open problems | [Blog draft](blog/from-rtl-generation-to-engineering-agents.md) |
 | Benchmark catalog | Machine-readable records for the benchmark landscape | [CSV catalog](data/benchmarks.csv) |
 | Research library | Reader-oriented benchmark and method cards with inputs, outputs, oracles, limitations, and diagrams | [Research library](research/README.md) |
@@ -134,14 +152,11 @@ The literature cutoff for the current snapshot is **2026-09-19**. Recent work is
 
 > **Important:** the current catalog is a research starting point, not a finalized systematic review. Quantitative claims should not be cited from this repository until the relevant row is marked `verified`.
 
-## How to read this project
+The repository deliberately separates three levels of certainty:
 
-- **New to the topic?** Start with the [survey blog draft](blog/from-rtl-generation-to-engineering-agents.md).
-- **Understanding what a benchmark actually tests?** Use the illustrated [research library](research/README.md).
-- **Comparing benchmarks?** Open the [catalog](data/benchmarks.csv) and [taxonomy](docs/taxonomy.md).
-- **Positioning a new survey?** Read the [comparison with prior surveys](docs/related-surveys.md).
-- **Checking methodology?** Read the [research protocol](docs/research-notes.md).
-- **Adding or correcting a paper?** Follow [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Orientation:** readable explanations of what the field appears to contain.
+- **Working evidence:** source-checked cards whose limits and unresolved questions remain visible.
+- **Paper evidence:** cross-checked and frozen claims suitable for the final manuscript.
 
 ## Repository structure
 
@@ -153,6 +168,7 @@ The literature cutoff for the current snapshot is **2026-09-19**. Recent work is
 │   ├── benchmarks.csv                # Machine-readable benchmark catalog
 │   └── SCHEMA.md                     # Field definitions and evidence rules
 ├── docs/
+│   ├── field-guide.md                 # Non-specialist guide to the field
 │   ├── research-notes.md             # Review protocol and open questions
 │   ├── related-surveys.md            # Comparison with prior surveys
 │   └── taxonomy.md                   # Comparison framework

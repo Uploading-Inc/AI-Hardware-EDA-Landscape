@@ -2,6 +2,8 @@
 
 This directory is the evidence layer behind the survey. It is organized for writing a paper, not for collecting links.
 
+If you are new to the field, read the [field guide](../docs/field-guide.md) first. This directory is the next layer down: it shows how each benchmark or method supports—or fails to support—a survey claim.
+
 ## From paper discovery to manuscript
 
 ```mermaid
