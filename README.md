@@ -66,6 +66,7 @@ The survey is organized around six questions:
 |---|---|---|
 | Survey synthesis | A readable account of the field, its evolution, and its open problems | [Blog draft](blog/from-rtl-generation-to-engineering-agents.md) |
 | Benchmark catalog | Machine-readable records for the benchmark landscape | [CSV catalog](data/benchmarks.csv) |
+| Research library | Reader-oriented benchmark and method cards with inputs, outputs, oracles, limitations, and diagrams | [Research library](research/README.md) |
 | Comparison framework | Shared definitions for context, interaction, oracle strength, artifacts, and realism | [Taxonomy](docs/taxonomy.md) |
 | Prior-survey comparison | What existing surveys cover and why a new synthesis is useful | [Related surveys](docs/related-surveys.md) |
 | Research protocol | Scope, inclusion criteria, source hierarchy, and extraction plan | [Research notes](docs/research-notes.md) |
@@ -136,6 +137,7 @@ The literature cutoff for the current snapshot is **2026-09-19**. Recent work is
 ## How to read this project
 
 - **New to the topic?** Start with the [survey blog draft](blog/from-rtl-generation-to-engineering-agents.md).
+- **Understanding what a benchmark actually tests?** Use the illustrated [research library](research/README.md).
 - **Comparing benchmarks?** Open the [catalog](data/benchmarks.csv) and [taxonomy](docs/taxonomy.md).
 - **Positioning a new survey?** Read the [comparison with prior surveys](docs/related-surveys.md).
 - **Checking methodology?** Read the [research protocol](docs/research-notes.md).
@@ -154,6 +156,12 @@ The literature cutoff for the current snapshot is **2026-09-19**. Recent work is
 │   ├── research-notes.md             # Review protocol and open questions
 │   ├── related-surveys.md            # Comparison with prior surveys
 │   └── taxonomy.md                   # Comparison framework
+├── research/
+│   ├── benchmarks/                    # Illustrated, source-checked benchmark cards
+│   ├── directions/                    # Map of survey directions and open work
+│   └── templates/                     # Benchmark, method, and direction templates
+├── paper/
+│   └── README.md                      # Manuscript structure and planned figures/tables
 ├── scripts/
 │   └── validate_catalog.py           # Catalog integrity checks
 ├── CITATION.cff
