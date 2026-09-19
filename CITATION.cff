@@ -5,8 +5,8 @@ type: dataset
 authors:
   - family-names: "Mao"
     given-names: "Junyuan"
-repository-code: "https://github.com/junyuanM/AI-Hardware-EDA-Landscape"
-url: "https://github.com/junyuanM/AI-Hardware-EDA-Landscape"
+repository-code: "https://github.com/Uploading-Inc/AI-Hardware-EDA-Landscape"
+url: "https://github.com/Uploading-Inc/AI-Hardware-EDA-Landscape"
 abstract: "A living, evidence-grounded map of benchmarks and agents for hardware engineering and electronic design automation."
 keywords:
   - hardware design
