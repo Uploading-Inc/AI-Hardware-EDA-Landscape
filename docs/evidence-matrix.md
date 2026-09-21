@@ -18,12 +18,12 @@ Use the matrix to ask three questions:
 
 | Direction and worked example | Typical input | Expected output | Evaluated interaction | Central success oracle | Main reproducibility constraint |
 |---|---|---|---|---|---|
-| RTL generation — [VerilogEval](../research/benchmarks/verilog-eval.md) | Natural-language module specification | One Verilog module | Single-shot generation; evaluator runs tools afterward | Compilation and functional testbench simulation | Results depend on prompt, sampling, simulator, and pass@k protocol |
+| RTL generation — [VerilogEval](../research/benchmarks/verilog-eval.md) | Partial implementation for the original completion harness, or natural-language specification for the revised harness | One Verilog module | Single-shot generation; evaluator runs tools afterward | Compilation and functional testbench simulation | Harness version, prompt, sampling, simulator, and pass@k protocol must be identified |
 | Formal verification — [FVEval](../research/benchmarks/fveval.md) | Natural-language property and/or RTL design context | SystemVerilog Assertions | Single-shot model evaluation; evaluator invokes formal tools | Syntax plus equivalence, implication, or proof outcomes depending on subtask | Full released flow requires Cadence Jasper |
 | Repository-scale RTL — [HWE-Bench-Repair](../research/benchmarks/hwe-bench-repair.md) | Historical issue plus complete hardware repository and container | Multi-file repository patch | Long-horizon coding agent using shell and repository tools | Project-native simulation and regression tests | Some OpenTitan images are not redistributed because of proprietary simulator requirements |
 | HLS and co-design — [HLS-Eval](../research/benchmarks/hls-eval.md) | Natural-language specification or existing HLS C/C++ | Generated or optimized HLS design | Canonical baselines are single-shot; evaluator runs the toolchain | Staged parsing, compilation, C simulation, and HLS synthesis outcomes | Full synthesis reproduction depends on AMD Vitis HLS |
 | Physical design agents — [RTL-to-GDS agent case study](../research/benchmarks/fluxbench.md) | PicoRV32 RTL, timing target, tool environment, and flow state | Tool actions, scripts, logs, and implemented design | Iterative tool-using agent | Executed synthesis and place-and-route flow with completion, quality, cost, and efficiency measures | Latest arXiv v3 reports one design, two clock targets, and a commercial 55 nm setup |
-| Analog and SPICE — [NetlistBench](../research/benchmarks/netlistbench.md) | SPICE netlist plus a structural edit instruction | Edited SPICE netlist | Single-shot structural editing | Deterministic structure-aware comparison | Structural correctness does not establish electrical performance in simulation |
+| Analog and SPICE — [NetlistBench](../research/benchmarks/netlistbench.md) | SPICE netlist plus a recognition question, equivalence task, or edit instruction | Answer or modified SPICE netlist | Single-shot recognition and manipulation | Deterministic structure-aware comparison | Structural correctness does not establish electrical performance in simulation |
 | Schematic and PCB — [PCBWorld](../research/benchmarks/pcbworld.md) | Board state inside a KiCad-grounded routing environment | Routing actions and updated board state | Iterative tool-using agent | Native engine feedback, connectivity, and design-rule-related metrics | Exact tool versions, assets, budgets, and benchmark split must be pinned |
 
 ## The comparison axes
@@ -36,8 +36,8 @@ The same seven cases look different when coded along the survey's cross-cutting 
 | FVEval | Isolated design/property | Single-shot | Formal | Assertions and verification collateral | Expert and synthetic tasks in a formal flow |
 | HWE-Bench-Repair | Full repository | Long-horizon agent | Native project tests | Multi-file patch | Historical issue in containerized projects |
 | HLS-Eval | Bounded design | Single-shot baseline | Simulation and synthesis | HLS C/C++ design | Toolchain-grounded curated tasks |
-| RTL-to-GDS agent case study | One complete design flow | Tool-using agent | Executed EDA flow | Scripts, reports, and layout artifacts | Commercial process and tools, narrow design sample |
-| NetlistBench | One netlist edit | Single-shot | Deterministic structural check | SPICE netlist | Controlled structural task suite |
+| RTL-to-GDS agent case study | One complete design flow | Long-horizon tool-using agent | Executed EDA flow | Scripts, reports, and layout artifacts | Commercial process and tools, narrow design sample |
+| NetlistBench | One netlist task | Single-shot | Deterministic structural check | Answer or SPICE netlist | Controlled structural task suite |
 | PCBWorld | Native board environment | Tool-using agent | Engine and physical checks | PCB routing state | KiCad-grounded synthetic and real boards |
 
 These columns are descriptive, not ordinal. “Repository-scale” is not automatically better than “isolated,” and a formal oracle is not automatically appropriate for a PCB-routing task. The purpose is to prevent unlike tasks from being collapsed into one ranking.
