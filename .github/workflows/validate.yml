@@ -1,4 +1,4 @@
-name: Validate research catalog
+name: Validate research repository
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  catalog:
+  repository:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -18,3 +18,5 @@ jobs:
           python-version: "3.12"
       - name: Validate catalog schema and values
         run: python3 scripts/validate_catalog.py
+      - name: Validate documentation structure and local assets
+        run: python3 scripts/validate_repository.py
