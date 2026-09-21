@@ -39,7 +39,7 @@ flowchart LR
     B --> C[Generated Verilog module]
     C --> D[Compile]
     D --> E[Run functional testbench]
-    E --> F[pass@k and failure analysis]
+    E --> F["pass@k and failure analysis"]
 ```
 
 ## What it demonstrates
