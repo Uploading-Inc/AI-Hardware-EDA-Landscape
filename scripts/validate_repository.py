@@ -14,8 +14,11 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_PARTS = {".git", "_coordination"}
 MARKDOWN_LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+REFERENCE_DEFINITION_PATTERN = re.compile(
+    r"^\s{0,3}\[(?!\^)([^\]]+)\]:\s*(.+)$", re.MULTILINE
+)
 HTML_TARGET_PATTERN = re.compile(r"\b(?:src|href)=[\"']([^\"']+)[\"']", re.IGNORECASE)
-FENCE_PATTERN = re.compile(r"^\s*(`{3,}|~{3,})")
+FENCE_PATTERN = re.compile(r"^\s*(`{3,}|~{3,})(.*)$")
 
 REQUIRED_CARD_HEADINGS = {
     "## One-sentence definition",
@@ -47,7 +50,11 @@ def prose_outside_fences(path: Path, errors: list[str]) -> str:
             token = marker.group(1)
             if open_fence is None:
                 open_fence = (token[0], len(token))
-            elif token[0] == open_fence[0] and len(token) >= open_fence[1]:
+            elif (
+                token[0] == open_fence[0]
+                and len(token) >= open_fence[1]
+                and not marker.group(2).strip()
+            ):
                 open_fence = None
             continue
         if open_fence is None:
@@ -76,7 +83,7 @@ def local_link_target(raw_target: str) -> str | None:
     if parsed.scheme or target.startswith(("#", "//")):
         return None
 
-    path_only = unquote(target.split("#", 1)[0])
+    path_only = unquote(parsed.path)
     return path_only or None
 
 
@@ -87,9 +94,12 @@ def validate_markdown(errors: list[str]) -> tuple[int, int]:
     for path in markdown_files:
         prose = prose_outside_fences(path, errors)
         link_matches = list(MARKDOWN_LINK_PATTERN.finditer(prose))
+        reference_matches = list(REFERENCE_DEFINITION_PATTERN.finditer(prose))
         html_matches = list(HTML_TARGET_PATTERN.finditer(prose))
-        for match in [*link_matches, *html_matches]:
-            target = local_link_target(match.group(1))
+        raw_targets = [match.group(1) for match in [*link_matches, *html_matches]]
+        raw_targets.extend(match.group(2) for match in reference_matches)
+        for raw_target in raw_targets:
+            target = local_link_target(raw_target)
             if target is None:
                 continue
             checked_links += 1
