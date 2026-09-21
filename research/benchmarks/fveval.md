@@ -6,8 +6,8 @@
 | Paper | [FVEval: Understanding Language Model Capabilities in Formal Verification of Digital Hardware](https://arxiv.org/abs/2410.23299) |
 | Official artifacts | [NVlabs/FVEval](https://github.com/NVlabs/FVEval) |
 | First public year / venue | 2024 preprint / DATE 2025 |
-| Verification status | `source-checked` for task families and tool requirements; result audit pending |
-| Last checked | 2026-09-19 |
+| Verification status | `source-checked` for task families, scale, oracles, and tool requirements; model-result audit pending |
+| Last checked | 2026-09-21 |
 
 ## One-sentence definition
 
@@ -23,13 +23,13 @@ Passing an RTL testbench does not show whether a model can express design intent
 |---|---|
 | Evaluation unit | One natural-language-to-SVA or design-to-SVA verification task |
 | Input | Natural-language property descriptions, testbench/design context, or RTL depending on sub-benchmark |
-| Expected output | SystemVerilog Assertions or design-level verification properties |
+| Expected output | SystemVerilog Assertions, with accompanying formal-testbench code where needed |
 | Dataset source | Expert-written collateral plus scalable synthetic examples aligned with formal-verification workflows |
-| Scale | Multiple sub-benchmarks; exact instance counts and splits remain to be extracted from the paper |
+| Scale | 79 NL2SVA-Human assertions, 300 NL2SVA-Machine cases, and 192 Design2SVA designs (96 pipelines and 96 FSMs) |
 | Interaction | Canonically single-shot model evaluation; the evaluator invokes formal tools externally |
 | Environment | Cadence Jasper, as required by the released evaluation flow |
-| Success oracle | Syntax and formal-verification-oriented property checks, including equivalence-oriented evaluation where applicable |
-| Metrics | Task-specific functional correctness and pass@k-style reporting |
+| Success oracle | Jasper syntax checks; exact/partial formal equivalence for NL2SVA; proof outcomes for Design2SVA |
+| Metrics | Syntax accuracy, exact and partial functional accuracy, BLEU as a reported non-oracle comparison, and pass@k where multiple samples are evaluated |
 
 ## Evaluation pipeline
 

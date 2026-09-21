@@ -6,8 +6,8 @@
 | Paper | [VerilogEval: Evaluating Large Language Models for Verilog Code Generation](https://arxiv.org/abs/2309.07544) |
 | Official artifacts | [NVlabs/verilog-eval](https://github.com/NVlabs/verilog-eval) |
 | First public year / venue | 2023 / ICCAD |
-| Verification status | `source-checked` for task and repository structure; result audit pending |
-| Last checked | 2026-09-19 |
+| Verification status | `source-checked` for the original paper and current repository contract; model-result audit pending |
+| Last checked | 2026-09-21 |
 
 ## One-sentence definition
 
@@ -25,11 +25,11 @@ Generic code-generation benchmarks do not test HDL semantics such as timing, sta
 | Input | A partial implementation for code completion, or a natural-language specification for specification-to-RTL |
 | Expected output | A Verilog module matching the required interface and behavior |
 | Dataset source | Human-authored HDL problems adapted into evaluation prompts and testbenches |
-| Scale | 156 problems in the original human-authored set; repository versions should be reported explicitly |
+| Scale | 156 human-authored problems; the original code-completion harness and revised specification-to-RTL harness must be identified separately |
 | Interaction | Single-shot generation in the canonical setting |
 | Environment | Verilog compilation and simulation; the current repository documents Icarus Verilog-based execution |
 | Success oracle | Compiles and passes the associated functional testbench |
-| Metrics | pass@k and failure categories, depending on repository version |
+| Metrics | The original work reports pass@k; the current v2 harness reports pass@1 under documented sampling settings and categorizes Icarus Verilog failures |
 
 ## Evaluation pipeline
 
@@ -58,7 +58,7 @@ flowchart LR
 |---|---|---|
 | Paper | Yes | Public arXiv paper and archival citation |
 | Dataset | Yes | Problem directories are included in the official repository |
-| Evaluator | Yes | Generation and analysis scripts are public |
+| Evaluator | Yes | Original `release/1.0.0` and revised main-branch generation/analysis scripts are public |
 | Environment | Open | Current setup documents Python and Icarus Verilog; version must be recorded |
 
 ## Open questions
