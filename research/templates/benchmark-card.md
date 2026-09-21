@@ -49,7 +49,7 @@ Record only results whose model, split, metric, and evaluation setting have been
 |---|---|---|
 | `TODO` | `TODO` | Section/table/figure in primary source |
 
-## What the benchmark demonstrates
+## What it demonstrates
 
 - `TODO`
 

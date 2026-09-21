@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import re
+import shlex
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -12,8 +13,9 @@ from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_PARTS = {".git", "_coordination"}
-LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
-FENCE_PATTERN = re.compile(r"^\s*(```|~~~)")
+MARKDOWN_LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+HTML_TARGET_PATTERN = re.compile(r"\b(?:src|href)=[\"']([^\"']+)[\"']", re.IGNORECASE)
+FENCE_PATTERN = re.compile(r"^\s*(`{3,}|~{3,})")
 
 REQUIRED_CARD_HEADINGS = {
     "## One-sentence definition",
@@ -37,22 +39,23 @@ def repository_files(pattern: str) -> list[Path]:
 
 def prose_outside_fences(path: Path, errors: list[str]) -> str:
     prose: list[str] = []
-    open_fence: str | None = None
+    open_fence: tuple[str, int] | None = None
 
     for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
         marker = FENCE_PATTERN.match(line)
         if marker:
             token = marker.group(1)
             if open_fence is None:
-                open_fence = token
-            elif open_fence == token:
+                open_fence = (token[0], len(token))
+            elif token[0] == open_fence[0] and len(token) >= open_fence[1]:
                 open_fence = None
             continue
         if open_fence is None:
             prose.append(line)
 
     if open_fence is not None:
-        errors.append(f"{path.relative_to(ROOT)}: unclosed {open_fence} code fence")
+        marker = open_fence[0] * open_fence[1]
+        errors.append(f"{path.relative_to(ROOT)}: unclosed {marker} code fence")
 
     return "\n".join(prose)
 
@@ -61,6 +64,13 @@ def local_link_target(raw_target: str) -> str | None:
     target = raw_target.strip()
     if target.startswith("<") and target.endswith(">"):
         target = target[1:-1]
+    else:
+        try:
+            parts = shlex.split(target)
+        except ValueError:
+            parts = [target]
+        if parts:
+            target = parts[0]
 
     parsed = urlparse(target)
     if parsed.scheme or target.startswith(("#", "//")):
@@ -76,7 +86,9 @@ def validate_markdown(errors: list[str]) -> tuple[int, int]:
 
     for path in markdown_files:
         prose = prose_outside_fences(path, errors)
-        for match in LINK_PATTERN.finditer(prose):
+        link_matches = list(MARKDOWN_LINK_PATTERN.finditer(prose))
+        html_matches = list(HTML_TARGET_PATTERN.finditer(prose))
+        for match in [*link_matches, *html_matches]:
             target = local_link_target(match.group(1))
             if target is None:
                 continue
