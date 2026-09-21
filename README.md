@@ -82,6 +82,7 @@ Choose the route that matches what you need:
 | If you want to… | Read this | What you will get |
 |---|---|---|
 | Understand the field without prior EDA knowledge | [Field guide](docs/field-guide.md) | The seven directions, their inputs/outputs, evaluation methods, and current maturity |
+| Decode unfamiliar hardware and evaluation terms | [Glossary](docs/glossary.md) | Plain-language definitions of RTL, HLS, oracle, PPA, DRC, PDK, Agent, and related terms |
 | Read the current argument as an essay | [Survey blog draft](blog/from-rtl-generation-to-engineering-agents.md) | The shift from isolated RTL generation to verifier- and environment-grounded agents |
 | Understand one benchmark precisely | [Research library](research/README.md) | Illustrated cards covering task, pipeline, oracle, limitations, and reproducibility |
 | Compare the full landscape | [Benchmark catalog](data/benchmarks.csv) + [taxonomy](docs/taxonomy.md) | Structured records and a shared comparison vocabulary |
@@ -202,6 +203,7 @@ The repository deliberately separates three levels of certainty:
 │   └── SCHEMA.md                     # Field definitions and evidence rules
 ├── docs/
 │   ├── field-guide.md                 # Non-specialist guide to the field
+│   ├── glossary.md                    # Hardware, evaluation, and agent terminology
 │   ├── research-notes.md             # Review protocol and open questions
 │   ├── related-surveys.md            # Comparison with prior surveys
 │   └── taxonomy.md                   # Comparison framework
