@@ -5,6 +5,7 @@
 | Research direction | Tool-interactive physical design and RTL-to-GDS workflows |
 | Catalog label | `fluxbench` is a repository-local identifier; the paper does not name its evaluation “FluxBench” |
 | Paper | [Can AI Agents Really Complete RTL-to-GDS? Lessons from Benchmarking Tool-Interactive EDA Workflows](https://arxiv.org/abs/2607.17528) |
+| Source version | arXiv v3, 23 July 2026; earlier indexed descriptions may reflect a broader superseded framing |
 | Official artifacts | Public benchmark package not located |
 | First public year / venue | 2026 / arXiv |
 | Verification status | `source-checked` for the paper's task, setup, metrics, and limitations; independent reproduction pending |
