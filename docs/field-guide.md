@@ -62,17 +62,17 @@ The central survey question is not simply “Can AI design hardware?” It is:
 
 ## 3. Seven research directions
 
-| Direction | Typical input | Expected output | Strongest common evaluator | Current picture |
-|---|---|---|---|---|
-| RTL generation | Natural-language specification or partial HDL | Verilog/SystemVerilog module | Compilation plus functional testbench | Most established benchmark family; usually isolated tasks |
-| Formal verification | Property description and design context | Assertions or verification properties | Formal tool | Stronger oracle, but often dependent on commercial tools |
-| Repository-scale RTL | Issue description and hardware repository | One- or multi-file patch | Native project regression | More realistic context; leakage and environment maintenance are difficult |
-| HLS and co-design | Specification or existing C/C++ and system context | Synthesizable accelerator and sometimes integration code | Simulation, synthesis, or deployment | Connects software-like generation to hardware constraints |
-| Physical-design agents | Design state, reports, constraints, and EDA access | Scripts, actions, or implemented design | Executed EDA flow and quality metrics | Agent scaffold and tool budget materially affect results |
-| Analog and SPICE | Circuit requirements or existing netlist | Circuit topology, parameters, or repaired netlist | Structural checks and SPICE simulation | Executable evaluation is possible, but task definitions remain fragmented |
-| Schematic and PCB | Requirements or native board artifacts | Schematic, layout, routing actions, or answers | ERC/DRC and native engine checks | Emerging area; full product-level changes remain weakly measured |
+| Direction | Typical input | Expected output | Typical interaction | Strongest common evaluator | Current picture |
+|---|---|---|---|---|---|
+| RTL generation | Natural-language specification or partial HDL | Verilog/SystemVerilog module | Usually single shot | Compilation plus functional testbench | Most established benchmark family; usually isolated tasks |
+| Formal verification | Property description, testbench context, or RTL | Assertions and supporting formal code | Usually single shot; tool run by evaluator | Formal equivalence or proof | Strong oracle, but often dependent on commercial tools |
+| Repository-scale RTL | Issue description, repository, and build environment | One- or multi-file patch | Long-horizon coding agent | Native project verification | More realistic context; leakage and environment maintenance are difficult |
+| HLS and co-design | Specification or existing C/C++ and system context | Synthesizable accelerator and sometimes integration code | Single shot through tool-using agent | Simulation, synthesis, or deployment | Executable HLS stages exist; full system integration is less established |
+| Physical-design agents | RTL, constraints, reports, technology setup, and EDA state | Scripts/actions and implemented-design artifacts | Long-horizon tool-using agent | Executed EDA stages and physical metrics | Agent scaffold, tool version, PDK, and budget materially affect results |
+| Analog and SPICE | Circuit requirements or existing netlist | Answer, topology, parameters, or edited netlist | Single shot or simulator-in-the-loop | Structural equivalence or SPICE simulation | Structural and electrical claims use different oracles; evaluation remains fragmented |
+| Schematic and PCB | Requirements or native board artifacts | Answer, schematic, layout, or routing actions | Single shot or interactive routing | Answer checks, ERC/DRC, and native engine metrics | Routing is increasingly executable; product-level cross-artifact changes remain weakly measured |
 
-For the named benchmarks and one worked example per direction, continue to the [research direction map](../research/directions/README.md).
+For the named benchmarks, claim boundaries, maturity assessment, and one worked example per direction, continue to the [research direction map](../research/directions/README.md).
 
 ## 4. Why benchmark results are hard to compare
 
