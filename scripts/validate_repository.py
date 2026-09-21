@@ -13,12 +13,11 @@ from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_PARTS = {".git", "_coordination"}
-MARKDOWN_LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 REFERENCE_DEFINITION_PATTERN = re.compile(
     r"^\s{0,3}\[(?!\^)([^\]]+)\]:\s*(.+)$", re.MULTILINE
 )
 HTML_TARGET_PATTERN = re.compile(r"\b(?:src|href)=[\"']([^\"']+)[\"']", re.IGNORECASE)
-FENCE_PATTERN = re.compile(r"^\s*(`{3,}|~{3,})(.*)$")
+FENCE_PATTERN = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
 
 REQUIRED_CARD_HEADINGS = {
     "## One-sentence definition",
@@ -69,8 +68,8 @@ def prose_outside_fences(path: Path, errors: list[str]) -> str:
 
 def local_link_target(raw_target: str) -> str | None:
     target = raw_target.strip()
-    if target.startswith("<") and target.endswith(">"):
-        target = target[1:-1]
+    if target.startswith("<") and ">" in target:
+        target = target[1 : target.index(">")]
     else:
         try:
             parts = shlex.split(target)
@@ -87,16 +86,76 @@ def local_link_target(raw_target: str) -> str | None:
     return path_only or None
 
 
+def prose_without_inline_code(prose: str) -> str:
+    """Remove inline code spans while preserving line breaks and offsets."""
+    output = list(prose)
+    index = 0
+    while index < len(prose):
+        if prose[index] != "`":
+            index += 1
+            continue
+
+        run_end = index
+        while run_end < len(prose) and prose[run_end] == "`":
+            run_end += 1
+        delimiter = prose[index:run_end]
+        close = prose.find(delimiter, run_end)
+        while close != -1 and (
+            (close > 0 and prose[close - 1] == "`")
+            or (close + len(delimiter) < len(prose) and prose[close + len(delimiter)] == "`")
+        ):
+            close = prose.find(delimiter, close + len(delimiter))
+        if close == -1:
+            index = run_end
+            continue
+
+        for position in range(index, close + len(delimiter)):
+            if output[position] != "\n":
+                output[position] = " "
+        index = close + len(delimiter)
+
+    return "".join(output)
+
+
+def markdown_inline_targets(prose: str) -> list[str]:
+    """Extract inline link destinations with balanced-parenthesis support."""
+    targets: list[str] = []
+    index = 0
+    while True:
+        opening = prose.find("](", index)
+        if opening == -1:
+            return targets
+
+        cursor = opening + 2
+        depth = 1
+        escaped = False
+        while cursor < len(prose):
+            character = prose[cursor]
+            if escaped:
+                escaped = False
+            elif character == "\\":
+                escaped = True
+            elif character == "(":
+                depth += 1
+            elif character == ")":
+                depth -= 1
+                if depth == 0:
+                    targets.append(prose[opening + 2 : cursor])
+                    break
+            cursor += 1
+        index = opening + 2
+
+
 def validate_markdown(errors: list[str]) -> tuple[int, int]:
     markdown_files = repository_files("*.md")
     checked_links = 0
 
     for path in markdown_files:
-        prose = prose_outside_fences(path, errors)
-        link_matches = list(MARKDOWN_LINK_PATTERN.finditer(prose))
+        prose = prose_without_inline_code(prose_outside_fences(path, errors))
         reference_matches = list(REFERENCE_DEFINITION_PATTERN.finditer(prose))
         html_matches = list(HTML_TARGET_PATTERN.finditer(prose))
-        raw_targets = [match.group(1) for match in [*link_matches, *html_matches]]
+        raw_targets = markdown_inline_targets(prose)
+        raw_targets.extend(match.group(1) for match in html_matches)
         raw_targets.extend(match.group(2) for match in reference_matches)
         for raw_target in raw_targets:
             target = local_link_target(raw_target)
