@@ -28,7 +28,7 @@ Passing an RTL testbench does not show whether a model can express design intent
 | Scale | 79 NL2SVA-Human assertions, 300 NL2SVA-Machine cases, and 192 Design2SVA designs (96 pipelines and 96 FSMs) |
 | Interaction | Canonically single-shot model evaluation; the evaluator invokes formal tools externally |
 | Environment | Cadence Jasper, as required by the released evaluation flow |
-| Success oracle | Jasper syntax checks; exact/partial formal equivalence for NL2SVA; proof outcomes for Design2SVA |
+| Success oracle | Jasper syntax checks; exact equivalence for full NL2SVA credit, one-way implication for partial credit, and proof outcomes for Design2SVA |
 | Metrics | Syntax accuracy, exact and partial functional accuracy, BLEU as a reported non-oracle comparison, and pass@k where multiple samples are evaluated |
 
 ## Evaluation pipeline
