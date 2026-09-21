@@ -86,6 +86,6 @@ The first pass includes one worked benchmark card for each major direction. Thes
 | Formal verification | [FVEval](benchmarks/fveval.md) |
 | Repository-scale repair | [HWE-Bench-Repair](benchmarks/hwe-bench-repair.md) |
 | HLS and co-design | [HLS-Eval](benchmarks/hls-eval.md) |
-| Physical design agents | [FluxBench](benchmarks/fluxbench.md) |
+| Physical design agents | [RTL-to-GDS agent case study](benchmarks/fluxbench.md) |
 | Analog and SPICE | [NetlistBench](benchmarks/netlistbench.md) |
 | Schematic and PCB | [PCBWorld](benchmarks/pcbworld.md) |

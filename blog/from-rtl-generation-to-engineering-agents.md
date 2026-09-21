@@ -82,6 +82,6 @@ This repository will audit the emerging benchmark landscape paper by paper, enco
 - [PDAGENT-BENCH: Characterizing, Grounding, and Architecting LLM Agents for VLSI Physical Design](https://arxiv.org/abs/2606.17253)
 - [PCB-QA: Evaluating LLMs over the First Printed Circuit Board Design Question-Answer Dataset](https://arxiv.org/abs/2606.23704)
 - [PCBWorld: A Benchmark Environment for Engine-Grounded PCB Design Automation](https://arxiv.org/abs/2607.05915)
-- [FluxBench: Can AI Agents Really Complete RTL-to-GDS?](https://arxiv.org/abs/2607.17528)
+- [Can AI Agents Really Complete RTL-to-GDS? Lessons from Benchmarking Tool-Interactive EDA Workflows](https://arxiv.org/abs/2607.17528)
 
 The full seed bibliography and release links are maintained in [`data/benchmarks.csv`](../data/benchmarks.csv). Quantitative claims will be added to the essay only after row-level verification.
