@@ -7,7 +7,7 @@
 | Official artifacts | [sharc-lab/hls-eval](https://github.com/sharc-lab/hls-eval) |
 | First public year / venue | 2025 / ICLAD |
 | Verification status | `source-checked` for task, scale, and evaluation stages; result audit pending |
-| Last checked | 2026-09-19 |
+| Last checked | 2026-09-21 |
 
 ## One-sentence definition
 

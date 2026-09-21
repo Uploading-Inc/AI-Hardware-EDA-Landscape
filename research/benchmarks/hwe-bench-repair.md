@@ -6,8 +6,8 @@
 | Paper | [HWE-Bench: Benchmarking LLM Agents on Real-World Hardware Bug Repair Tasks](https://arxiv.org/abs/2604.14709) |
 | Official artifacts | [pku-liang/hwe-bench](https://github.com/pku-liang/hwe-bench) · [Dataset](https://huggingface.co/datasets/henryen/hwe-bench) |
 | First public year / venue | 2026 / arXiv |
-| Verification status | `source-checked` for task construction and released harness; detailed result audit pending |
-| Last checked | 2026-09-19 |
+| Verification status | `source-checked` for task construction, scale, harness, and environment boundary; detailed result audit pending |
+| Last checked | 2026-09-21 |
 
 ## One-sentence definition
 
@@ -57,9 +57,9 @@ flowchart LR
 | Artifact | Availability | Notes |
 |---|---|---|
 | Paper | Yes | Public preprint |
-| Dataset | Yes | Public JSONL datasets; OpenTitan has additional tool constraints |
+| Dataset | Yes | Public JSONL datasets for all 417 tasks |
 | Evaluator | Yes | Harness, adapters, and evaluator are public |
-| Environment | Mixed | Most images are distributed; some flows require commercial tooling or local construction |
+| Environment | Mixed | Images are published for the 172 non-OpenTitan tasks; 245 OpenTitan tasks require a locally licensed Synopsys VCS setup |
 
 ## Open questions
 

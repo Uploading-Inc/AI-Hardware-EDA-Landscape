@@ -5,9 +5,9 @@
 | Research direction | PCB routing and engine-grounded board design |
 | Paper | [PCBWorld: A Benchmark Environment for Engine-Grounded PCB Design Automation](https://arxiv.org/abs/2607.05915) |
 | Official artifacts | [LGAI-Research/PCBWorld](https://github.com/LGAI-Research/PCBWorld) |
-| First public year / venue | 2026 / arXiv |
+| First public year / venue | 2026 / KDD Evaluation and Trustworthiness of Agentic AI Workshop (non-archival) |
 | Verification status | `source-checked` for environment, dataset families, and evaluation framing; result audit pending |
-| Last checked | 2026-09-19 |
+| Last checked | 2026-09-21 |
 
 ## One-sentence definition
 

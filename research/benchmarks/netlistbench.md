@@ -4,10 +4,10 @@
 |---|---|
 | Research direction | Analog and SPICE netlist manipulation |
 | Paper | [NetlistBench: Evaluating LLM Reliability in SPICE Netlist Recognition and Manipulation](https://arxiv.org/abs/2608.12197) |
-| Official artifacts | Public repository not located in the initial source pass |
-| First public year / venue | 2026 / arXiv |
-| Verification status | `source-checked` for task taxonomy, scale, and oracle; artifact audit pending |
-| Last checked | 2026-09-19 |
+| Official artifacts | [WoshiMayou/NetlistBench](https://github.com/WoshiMayou/NetlistBench) |
+| First public year / venue | 2026 / MLCAD |
+| Verification status | `source-checked` for task taxonomy, scale, oracle, and public release; model-result audit pending |
+| Last checked | 2026-09-21 |
 
 ## One-sentence definition
 
@@ -24,7 +24,7 @@ An LLM may produce plausible circuit text while silently corrupting connectivity
 | Evaluation unit | One recognition, edit, equivalence, or compound netlist task |
 | Input | A SPICE netlist plus a question or edit instruction |
 | Expected output | An answer or modified SPICE netlist |
-| Dataset source | Constructed cases spanning local and hierarchical structural operations |
+| Dataset source | Generated cases based on flat and hierarchical source corpora; the shipped cases are complete for scoring, but the original corpora are not redistributed |
 | Scale | 2,342 cases across 24 task families |
 | Interaction | Single-shot or reasoning-model response in the reported evaluation |
 | Environment | Structure-aware parser/evaluator rather than a full analog design loop |
@@ -57,11 +57,11 @@ flowchart LR
 | Artifact | Availability | Notes |
 |---|---|---|
 | Paper | Yes | Public preprint |
-| Dataset | Not located | Recheck before manuscript freeze |
-| Evaluator | Not located | Deterministic oracle is described in the paper |
-| Environment | Unclear | Full release status requires verification |
+| Dataset | Yes | The 2,342 scored cases and manifest are public; original source corpora are not redistributed |
+| Evaluator | Yes | Deterministic canonical-IR scorers and runners are public |
+| Environment | Open | Python dependencies and fixed task prompts are documented in the release |
 
 ## Open questions
 
-- Will the structural oracle and data generator be released in a reusable form?
+- How should regeneration claims be scoped when the scored cases are public but the original source corpora are not redistributed?
 - How well do structural results predict success in simulator-grounded repair tasks?
