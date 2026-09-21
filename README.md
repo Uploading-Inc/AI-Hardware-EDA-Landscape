@@ -15,7 +15,7 @@
 [![Cutoff](https://img.shields.io/badge/literature%20cutoff-2026--09--19-0f766e?style=flat-square)](#scope)
 [![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-f59e0b?style=flat-square)](LICENSE)
 
-[Start here](#what-is-this-project) · [Field guide](docs/field-guide.md) · [Research library](research/README.md) · [Landscape](#benchmark-landscape) · [Data](data/benchmarks.csv) · [Contribute](CONTRIBUTING.md)
+[Start here](#what-is-this-project) · [Field guide](docs/field-guide.md) · [Research library](research/README.md) · [Roadmap](ROADMAP.md) · [Data](data/benchmarks.csv) · [Contribute](CONTRIBUTING.md)
 
 </div>
 
@@ -88,6 +88,7 @@ Choose the route that matches what you need:
 | Compare the full landscape | [Benchmark catalog](data/benchmarks.csv) + [taxonomy](docs/taxonomy.md) | Structured records and a shared comparison vocabulary |
 | Inspect how evidence is produced | [Research protocol](docs/research-notes.md) | Inclusion rules, source hierarchy, verification stages, and open questions |
 | See how this becomes a paper | [Manuscript workspace](paper/README.md) | Planned sections, figures, tables, and their evidence dependencies |
+| Track what is finished and what comes next | [Research roadmap](ROADMAP.md) | Milestones and exit criteria from seed map to archival release |
 
 If you are new to the topic, follow the first three rows in order. They are the public reading layer; `data/`, templates, and protocol files are the research machinery behind it.
 
@@ -196,6 +197,7 @@ The repository deliberately separates three levels of certainty:
 ```text
 .
 ├── README.md                         # Public survey landing page
+├── ROADMAP.md                        # Milestones and evidence exit criteria
 ├── assets/                           # Repository-native visual assets
 ├── blog/                             # Readable survey essays
 ├── data/
