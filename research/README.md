@@ -4,6 +4,8 @@ This directory is the evidence layer behind the survey. It is organized for writ
 
 If you are new to the field, read the [field guide](../docs/field-guide.md) first. This directory is the next layer down: it shows how each benchmark or method supports—or fails to support—a survey claim.
 
+To compare the seven worked examples side by side before opening individual cards, use the [cross-benchmark evidence matrix](../docs/evidence-matrix.md).
+
 ## From paper discovery to manuscript
 
 ```mermaid

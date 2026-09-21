@@ -26,7 +26,7 @@ This directory maps the research library to the future paper. Manuscript prose s
 | Figure 3 | Benchmark anatomy: input → system → artifact → oracle | Verified benchmark cards |
 | Table 1 | Prior survey comparison | `docs/related-surveys.md` after source audit |
 | Table 2 | Main benchmark catalog | Frozen export of `data/benchmarks.csv` plus card fields |
-| Table 3 | Oracle and reproducibility comparison | Cross-benchmark evidence matrix |
+| Table 3 | Oracle and reproducibility comparison | [`docs/evidence-matrix.md`](../docs/evidence-matrix.md) |
 | Figure 4 | Capability coverage and research gaps | Adjudicated capability coding |
 
 ## Writing rule

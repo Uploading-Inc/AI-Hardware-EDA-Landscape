@@ -85,6 +85,7 @@ Choose the route that matches what you need:
 | Decode unfamiliar hardware and evaluation terms | [Glossary](docs/glossary.md) | Plain-language definitions of RTL, HLS, oracle, PPA, DRC, PDK, Agent, and related terms |
 | Read the current argument as an essay | [Survey blog draft](blog/from-rtl-generation-to-engineering-agents.md) | The shift from isolated RTL generation to verifier- and environment-grounded agents |
 | Understand one benchmark precisely | [Research library](research/README.md) | Illustrated cards covering task, pipeline, oracle, limitations, and reproducibility |
+| Compare seven representative benchmarks | [Evidence matrix](docs/evidence-matrix.md) | Inputs, outputs, interaction regimes, success oracles, and reproducibility constraints side by side |
 | Compare the full landscape | [Benchmark catalog](data/benchmarks.csv) + [taxonomy](docs/taxonomy.md) | Structured records and a shared comparison vocabulary |
 | Inspect how evidence is produced | [Research protocol](docs/research-notes.md) | Inclusion rules, source hierarchy, verification stages, and open questions |
 | See how this becomes a paper | [Manuscript workspace](paper/README.md) | Planned sections, figures, tables, and their evidence dependencies |
