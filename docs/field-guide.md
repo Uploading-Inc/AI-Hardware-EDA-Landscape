@@ -12,6 +12,11 @@ It does **not** primarily study hardware accelerators for running AI. The direct
 flowchart LR
     A[AI system] -->|designs, verifies, or edits| B[Hardware artifact or workflow]
     C[Hardware accelerator] -->|runs faster| D[AI workload]
+
+    classDef included fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+    classDef excluded fill:#f3f4f6,stroke:#6b7280,stroke-dasharray:5 5;
+    class A,B included;
+    class C,D excluded;
 ```
 
 This repository covers the upper path.
@@ -28,7 +33,7 @@ A benchmark result is meaningful only together with its inputs, allowed tools, b
 Research can be located along the hardware workflow, but the stages do not form a perfectly linear process in real projects.
 
 ```mermaid
-flowchart LR
+flowchart TB
     A[Requirements] --> B[RTL or HLS]
     B --> C[Verification]
     C --> D[Synthesis and physical design]
@@ -38,6 +43,15 @@ flowchart LR
     B --> H[Repository and system integration]
     G --> H
     H --> I[Firmware and deployment]
+
+    classDef intent fill:#ede9fe,stroke:#7c3aed,stroke-width:2px;
+    classDef digital fill:#dbeafe,stroke:#2563eb;
+    classDef circuit fill:#ccfbf1,stroke:#0f766e;
+    classDef system fill:#fef3c7,stroke:#d97706;
+    class A intent;
+    class B,C,D,E digital;
+    class F,G circuit;
+    class H,I system;
 ```
 
 The central survey question is not simply “Can AI design hardware?” It is:
@@ -81,6 +95,13 @@ flowchart LR
     A[Text or syntax scoring] --> B[Executable verification]
     B --> C[Repository and system context]
     C --> D[Tool-interactive engineering agents]
+
+    classDef early fill:#f3f4f6,stroke:#6b7280;
+    classDef middle fill:#dbeafe,stroke:#2563eb;
+    classDef recent fill:#ede9fe,stroke:#7c3aed,stroke-width:2px;
+    class A early;
+    class B,C middle;
+    class D recent;
 ```
 
 - **From resemblance to execution:** compilation, simulation, formal methods, synthesis, DRC, and deployment increasingly replace surface similarity.
@@ -125,6 +146,16 @@ flowchart LR
     B --> C[Produced artifact or action]
     C --> D[Independent evaluator]
     D --> E[Metric and claim]
+    D -. execution feedback, if allowed .-> B
+
+    classDef input fill:#f3f4f6,stroke:#6b7280;
+    classDef system fill:#ede9fe,stroke:#7c3aed;
+    classDef artifact fill:#dbeafe,stroke:#2563eb;
+    classDef evidence fill:#ccfbf1,stroke:#0f766e,stroke-width:2px;
+    class A input;
+    class B system;
+    class C artifact;
+    class D,E evidence;
 ```
 
 A useful card must also explain what the benchmark **does not** demonstrate. For example, passing an RTL testbench does not establish physical quality, and passing PCB design-rule checks does not establish that a board fulfills its intended electrical function.

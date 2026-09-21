@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/research-landscape-banner.svg" alt="AI for Hardware Design and EDA research landscape" width="100%">
+
 # AI for Hardware Design & EDA
 
 ### A Survey of Benchmarks, Methods, and Evaluation Practices
@@ -7,7 +9,9 @@
 **A living literature review of how AI and LLM agents are studied across the hardware-design stack.**
 
 [![Status](https://img.shields.io/badge/status-survey%20in%20progress-7c3aed?style=flat-square)](#project-status)
+[![Directions](https://img.shields.io/badge/research%20directions-7-9333ea?style=flat-square)](#benchmark-landscape)
 [![Catalog](https://img.shields.io/badge/benchmark%20catalog-22%20seed%20entries-2563eb?style=flat-square)](data/benchmarks.csv)
+[![Cards](https://img.shields.io/badge/illustrated%20benchmark%20cards-7-0891b2?style=flat-square)](research/README.md#current-contents)
 [![Cutoff](https://img.shields.io/badge/literature%20cutoff-2026--09--19-0f766e?style=flat-square)](#scope)
 [![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-f59e0b?style=flat-square)](LICENSE)
 
@@ -19,22 +23,42 @@
 
 This project is a **structured survey of academic work on AI for hardware design and electronic design automation (EDA)**. We review the benchmarks researchers use, the methods they evaluate, the tools and verification environments involved, and the conclusions that can—and cannot—be drawn from reported results.
 
-The survey spans the hardware-design workflow:
+> **In one sentence:** we map what AI systems are asked to do in hardware engineering, how they are evaluated, and which reported claims are actually comparable.
+
+The survey spans two engineering paths and the repository-scale systems that connect them:
 
 ```mermaid
-flowchart LR
-    A[Specification] --> B[RTL & HDL]
-    B --> C[Verification]
-    C --> D[HLS & Synthesis]
-    D --> E[Physical Design]
-    E --> F[Analog & SPICE]
-    F --> G[Schematic & PCB]
-    G --> H[Hardware–Software Co-design]
+flowchart TB
+    R[Requirements and engineering intent]
+
+    subgraph DIGITAL[Digital design]
+        RTL[RTL generation] --> FV[Formal verification]
+        HLS[HLS and co-design] --> PD[Physical design agents]
+        RTL --> PD
+    end
+
+    subgraph CIRCUIT[Circuit and board design]
+        ASP[Analog and SPICE] --> PCB[Schematic and PCB]
+    end
+
+    R --> RTL
+    R --> HLS
+    R --> ASP
+    SYS[Repository and system-scale agents] -. repository context .-> RTL
+    SYS -. system integration .-> HLS
+    SYS -. cross-artifact changes .-> PCB
+
+    classDef intent fill:#ede9fe,stroke:#7c3aed,stroke-width:2px;
+    classDef digital fill:#dbeafe,stroke:#2563eb;
+    classDef circuit fill:#ccfbf1,stroke:#0f766e;
+    classDef system fill:#fef3c7,stroke:#d97706,stroke-width:2px;
+    class R intent;
+    class RTL,FV,HLS,PD digital;
+    class ASP,PCB circuit;
+    class SYS system;
 ```
 
 We are **not** introducing a new model or benchmark in the current phase. The repository is the working companion to a new survey: it turns a fast-moving body of papers into a readable synthesis, a structured benchmark catalog, and a reproducible evidence base.
-
-In one sentence: **we are mapping what AI systems are asked to do in hardware engineering, how those systems are evaluated, and which claims are actually comparable.**
 
 <details>
 <summary><strong>中文简介</strong></summary>
@@ -42,6 +66,14 @@ In one sentence: **we are mapping what AI systems are asked to do in hardware en
 本项目系统调研 AI/LLM 在硬件设计与电子设计自动化领域的学术论文、benchmark、方法和已有 survey，并在此基础上撰写一篇达到 arXiv 论文严谨程度的综述。当前阶段不是开发新的模型或 benchmark，而是回答：这个领域已有怎样的评测体系、不同工作究竟测了什么、结果是否可比，以及仍有哪些研究空白。
 
 </details>
+
+### Current snapshot
+
+| Field map | Discovery catalog | Illustrated examples | Manuscript state |
+|---:|---:|---:|---|
+| **7** research directions | **22** seed systems | **7** worked benchmark cards | Outline and asset plan prepared |
+
+These numbers describe the current structure, not completion. A seed entry is a discovery lead; it becomes paper evidence only after source and claim-level verification.
 
 ## Start reading
 
@@ -148,7 +180,7 @@ The literature cutoff for the current snapshot is **2026-09-19**. Recent work is
 | Evidence audit | Links checked; catalog rows still marked `seed` | Verify every row against primary sources |
 | Taxonomy | Five comparison axes drafted | Apply consistently and resolve edge cases |
 | Writing | First synthesis essay drafted | Rewrite as a source-complete survey manuscript |
-| Figures | Not started | Build figures only after the evidence table stabilizes |
+| Figures | Conceptual research diagrams drafted | Redraw publication figures after the evidence table stabilizes |
 
 > **Important:** the current catalog is a research starting point, not a finalized systematic review. Quantitative claims should not be cited from this repository until the relevant row is marked `verified`.
 
@@ -163,6 +195,7 @@ The repository deliberately separates three levels of certainty:
 ```text
 .
 ├── README.md                         # Public survey landing page
+├── assets/                           # Repository-native visual assets
 ├── blog/                             # Readable survey essays
 ├── data/
 │   ├── benchmarks.csv                # Machine-readable benchmark catalog
@@ -173,9 +206,9 @@ The repository deliberately separates three levels of certainty:
 │   ├── related-surveys.md            # Comparison with prior surveys
 │   └── taxonomy.md                   # Comparison framework
 ├── research/
-│   ├── benchmarks/                    # Illustrated, source-checked benchmark cards
-│   ├── directions/                    # Map of survey directions and open work
-│   └── templates/                     # Benchmark, method, and direction templates
+│   ├── benchmarks/                   # Illustrated, source-checked benchmark cards
+│   ├── directions/                   # Map of survey directions and open work
+│   └── templates/                    # Benchmark, method, and direction templates
 ├── paper/
 │   └── README.md                      # Manuscript structure and planned figures/tables
 ├── scripts/
