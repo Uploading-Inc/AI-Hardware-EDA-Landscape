@@ -2,6 +2,8 @@
 
 This is the shortest route from “I do not know this field” to understanding what current research is actually testing. It is an orientation document, not a final survey conclusion. Statements become paper-ready only after the underlying evidence is cross-checked.
 
+Terms such as RTL, HLS, oracle, PPA, and DRC are defined in the [plain-language glossary](glossary.md).
+
 ## 1. What field are we studying?
 
 This survey studies **AI systems that perform or assist hardware-engineering work**: writing RTL, generating verification properties, repairing repositories, operating EDA tools, manipulating circuits, and working with schematics or PCB layouts.
