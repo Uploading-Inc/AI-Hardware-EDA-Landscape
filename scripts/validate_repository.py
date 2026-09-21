@@ -43,8 +43,15 @@ def prose_outside_fences(path: Path, errors: list[str]) -> str:
     prose: list[str] = []
     open_fence: tuple[str, int] | None = None
 
-    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+    for line in path.read_text(encoding="utf-8").splitlines():
         marker = FENCE_PATTERN.match(line)
+        if (
+            marker
+            and open_fence is None
+            and marker.group(1).startswith("`")
+            and "`" in marker.group(2)
+        ):
+            marker = None
         if marker:
             token = marker.group(1)
             if open_fence is None:
@@ -91,7 +98,7 @@ def prose_without_inline_code(prose: str) -> str:
     output = list(prose)
     index = 0
     while index < len(prose):
-        if prose[index] != "`":
+        if prose[index] != "`" or is_escaped(prose, index):
             index += 1
             continue
 
@@ -117,33 +124,46 @@ def prose_without_inline_code(prose: str) -> str:
     return "".join(output)
 
 
+def is_escaped(text: str, index: int) -> bool:
+    backslashes = 0
+    cursor = index - 1
+    while cursor >= 0 and text[cursor] == "\\":
+        backslashes += 1
+        cursor -= 1
+    return backslashes % 2 == 1
+
+
 def markdown_inline_targets(prose: str) -> list[str]:
     """Extract inline link destinations with balanced-parenthesis support."""
     targets: list[str] = []
+    label_stack: list[int] = []
     index = 0
-    while True:
-        opening = prose.find("](", index)
-        if opening == -1:
-            return targets
-
-        cursor = opening + 2
-        depth = 1
-        escaped = False
-        while cursor < len(prose):
-            character = prose[cursor]
-            if escaped:
+    while index < len(prose):
+        character = prose[index]
+        if character == "[" and not is_escaped(prose, index):
+            label_stack.append(index)
+        elif character == "]" and not is_escaped(prose, index) and label_stack:
+            label_stack.pop()
+            if index + 1 < len(prose) and prose[index + 1] == "(":
+                cursor = index + 2
+                depth = 1
                 escaped = False
-            elif character == "\\":
-                escaped = True
-            elif character == "(":
-                depth += 1
-            elif character == ")":
-                depth -= 1
-                if depth == 0:
-                    targets.append(prose[opening + 2 : cursor])
-                    break
-            cursor += 1
-        index = opening + 2
+                while cursor < len(prose):
+                    target_character = prose[cursor]
+                    if escaped:
+                        escaped = False
+                    elif target_character == "\\":
+                        escaped = True
+                    elif target_character == "(":
+                        depth += 1
+                    elif target_character == ")":
+                        depth -= 1
+                        if depth == 0:
+                            targets.append(prose[index + 2 : cursor])
+                            break
+                    cursor += 1
+        index += 1
+    return targets
 
 
 def validate_markdown(errors: list[str]) -> tuple[int, int]:
@@ -176,7 +196,7 @@ def validate_benchmark_cards(errors: list[str]) -> int:
     for path in cards:
         headings = {
             line.strip()
-            for line in path.read_text(encoding="utf-8").splitlines()
+            for line in prose_outside_fences(path, []).splitlines()
             if line.startswith("## ")
         }
         missing = sorted(REQUIRED_CARD_HEADINGS - headings)
